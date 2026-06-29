@@ -6,7 +6,8 @@ COPY package*.json ./
 RUN npm ci
 
 COPY . .
-RUN npm run build
+# 确保 public 目录存在（Next.js 构建时需要，即使为空）
+RUN mkdir -p /app/public && npm run build
 
 # ---- 运行阶段 ----
 FROM node:20-alpine AS runner
